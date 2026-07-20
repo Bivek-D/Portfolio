@@ -1,0 +1,520 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============ Dimension Portfolio — global styles ============ */
+
+:root {
+  --ow-green: #6abe30;
+  --ow-green-soft: #8fd94f;
+  --ow-dirt: #6b4423;
+  --nether-red: #d63b1f;
+  --nether-lava: #f27b1a;
+  --end-violet: #b967e8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0b0b0d;
+  color: #f0ece2;
+  overflow-x: hidden;
+}
+
+.font-pixel {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+}
+
+.text-shadow-pixel {
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+}
+
+.text-shadow-pixel-sm {
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.pixelated {
+  image-rendering: pixelated;
+}
+
+::selection {
+  background: rgba(106, 190, 48, 0.4);
+}
+
+/* ============ Minecraft chunky button ============ */
+
+.mc-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  padding: 0.95rem 1.4rem;
+  border: 2px solid #0a0a0a;
+  cursor: pointer;
+  image-rendering: pixelated;
+  box-shadow:
+    inset 0 3px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.32),
+    inset 3px 0 0 rgba(255, 255, 255, 0.12),
+    inset -3px 0 0 rgba(0, 0, 0, 0.18),
+    0 4px 0 rgba(0, 0, 0, 0.45);
+  transition: transform 120ms ease, filter 160ms ease, box-shadow 120ms ease;
+  will-change: transform;
+}
+
+.mc-btn:hover {
+  filter: brightness(1.12);
+}
+
+.mc-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 3px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.32),
+    0 1px 0 rgba(0, 0, 0, 0.45);
+}
+
+.mc-btn:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.mc-btn-green {
+  background: linear-gradient(180deg, #74c93c 0%, #5da92a 55%, #4c8f21 100%);
+}
+
+.mc-btn-dark {
+  background: linear-gradient(180deg, #4a4d52 0%, #34373b 55%, #26282c 100%);
+}
+
+/* ============ Minecraft panel / card ============ */
+
+.mc-card {
+  position: relative;
+  background: rgba(22, 15, 9, 0.88);
+  border: 3px solid #0b0705;
+  box-shadow:
+    inset 0 0 0 2px rgba(122, 90, 51, 0.55),
+    0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.mc-card-corner::before,
+.mc-card-corner::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #8a5a32;
+  box-shadow: 0 0 0 2px #0b0705;
+}
+
+.mc-card-corner::before {
+  top: -6px;
+  left: -6px;
+}
+
+.mc-card-corner::after {
+  bottom: -6px;
+  right: -6px;
+}
+
+/* ============ Navbar ============ */
+
+.mc-navbar {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.nav-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* hotbar-style slot chip */
+.nav-btn {
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  background: rgba(11, 12, 15, 0.88);
+  border: 3px solid #22252b;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.04),
+    0 8px 22px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease;
+  will-change: transform;
+}
+
+.nav-btn:focus-visible {
+  outline: none;
+}
+
+.nav-btn:focus-visible .block-icon-frame {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 14px 2px rgba(255, 255, 255, 0.6);
+}
+
+.block-icon-frame {
+  display: block;
+  transition: box-shadow 260ms ease;
+}
+
+.nav-btn.active .block-icon-frame {
+  box-shadow:
+    0 0 0 2px var(--dim-color),
+    0 0 18px 3px var(--dim-glow),
+    0 0 42px 6px var(--dim-glow);
+}
+
+.nav-btn.active {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* hover spread — neighbours slide apart, labels slide in (transform only) */
+.nav-slot.spread-left .nav-btn {
+  transform: translateX(calc(-1 * var(--ml)));
+}
+
+.nav-slot.spread-right .nav-btn {
+  transform: translateX(var(--mr));
+}
+
+.nav-slot.hovered .nav-btn {
+  transform: translateY(-3px) scale(1.08);
+  border-color: #3a3e46;
+}
+
+.nav-slot.hovered .nav-btn.active {
+  transform: translateY(-3px) scale(1.08);
+}
+
+.nav-label {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  white-space: nowrap;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: #e8e4d8;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  background: rgba(11, 12, 15, 0.88);
+  border: 2px solid #22252b;
+  padding: 7px 9px;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 340ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms ease;
+  will-change: transform, opacity;
+}
+
+.nav-label-left {
+  right: calc(100% + 12px);
+  transform: translate(16px, -50%);
+}
+
+.nav-label-right {
+  left: calc(100% + 12px);
+  transform: translate(-16px, -50%);
+  color: var(--dim-color);
+  font-size: 0.48rem;
+}
+
+.nav-slot.hovered .nav-label-left,
+.nav-slot.hovered .nav-label-right {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+@media (max-width: 680px) {
+  .mc-navbar {
+    gap: 1rem;
+  }
+
+  /* no spread on touch — label drops below the block instead */
+  .nav-slot.spread-left .nav-btn,
+  .nav-slot.spread-right .nav-btn {
+    transform: none;
+  }
+
+  .nav-btn.active {
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .nav-label-right {
+    display: none;
+  }
+
+  .nav-label-left {
+    right: auto;
+    left: 50%;
+    top: calc(100% + 12px);
+    transform: translate(-50%, -8px);
+    font-size: 0.5rem;
+  }
+
+  .nav-slot.hovered .nav-label-left {
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ============ Loading screen progress bar ============ */
+
+.mc-bar {
+  width: min(440px, 74vw);
+  height: 24px;
+  background: #0d0d0d;
+  border: 3px solid;
+  border-color: #5f5f5f #191919 #191919 #5f5f5f;
+  box-shadow:
+    0 0 0 3px #000,
+    0 8px 24px rgba(0, 0, 0, 0.55);
+  padding: 3px;
+}
+
+.mc-bar-fill {
+  height: 100%;
+  transform-origin: left center;
+  will-change: transform;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(0, 0, 0, 0.22) 100%),
+    repeating-linear-gradient(
+      90deg,
+      var(--fill) 0 14px,
+      rgba(0, 0, 0, 0.28) 14px 16px
+    ),
+    var(--fill);
+  box-shadow: 0 0 14px var(--fill), 0 0 34px var(--fill);
+}
+
+/* ============ Overworld particles & atmosphere ============ */
+
+.leaf {
+  position: absolute;
+  top: -6vh;
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  opacity: 0;
+  animation: leaf-fall var(--dur) linear var(--delay) infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.leaf > i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--c);
+  border-radius: 64% 4% 64% 4%;
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.22);
+  animation: leaf-sway calc(var(--dur) / 4) ease-in-out var(--delay) infinite alternate;
+  will-change: transform;
+}
+
+@keyframes leaf-fall {
+  0% {
+    transform: translate3d(0, -6vh, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(var(--dx), 106vh, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes leaf-sway {
+  from {
+    transform: translateX(-16px) rotate(-26deg);
+  }
+  to {
+    transform: translateX(16px) rotate(30deg);
+  }
+}
+
+.fog {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation: fog-drift var(--dur, 26s) ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes fog-drift {
+  from {
+    transform: translate3d(-4%, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(5%, -2%, 0) scale(1.08);
+  }
+}
+
+.cloud {
+  position: absolute;
+  width: 84px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    30px 14px 0 rgba(255, 255, 255, 0.92),
+    60px 2px 0 rgba(255, 255, 255, 0.92),
+    18px -14px 0 rgba(255, 255, 255, 0.92),
+    48px -12px 0 rgba(255, 255, 255, 0.92);
+  opacity: var(--o, 0.9);
+  animation: cloud-drift var(--dur) linear var(--delay) infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+
+@keyframes cloud-drift {
+  from {
+    transform: translate3d(-22vw, 0, 0);
+  }
+  to {
+    transform: translate3d(122vw, 0, 0);
+  }
+}
+
+/* ============ Nether embers ============ */
+
+.ember {
+  position: absolute;
+  bottom: -5vh;
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  background: var(--c);
+  box-shadow: 0 0 8px 1px var(--c);
+  opacity: 0;
+  animation: ember-rise var(--dur) linear var(--delay) infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+@keyframes ember-rise {
+  0% {
+    transform: translate3d(0, 5vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--dx), -108vh, 0) rotate(240deg);
+    opacity: 0;
+  }
+}
+
+/* ============ End void particles ============ */
+
+.void-p {
+  position: absolute;
+  bottom: -4vh;
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  background: var(--c);
+  box-shadow: 0 0 10px 2px var(--c);
+  opacity: 0;
+  animation: void-float var(--dur) linear var(--delay) infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+@keyframes void-float {
+  0% {
+    transform: translate3d(0, 4vh, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--dx), -106vh, 0);
+    opacity: 0;
+  }
+}
+
+/* ============ Skill segment bars ============ */
+
+.skill-seg {
+  width: 14px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 2px solid rgba(0, 0, 0, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.skill-seg.on {
+  background: linear-gradient(180deg, #8fd94f, #5da92a);
+  box-shadow: 0 0 6px rgba(106, 190, 48, 0.55), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* ============ Timeline rail (minecart track) ============ */
+
+.rail {
+  background: repeating-linear-gradient(
+    180deg,
+    #7a5230 0 6px,
+    #7a5230 6px 10px,
+    #3a2814 10px 12px,
+    #8a6a44 12px 14px,
+    #3a2814 14px 24px
+  );
+  box-shadow: 0 0 0 2px #1a1008;
+}
+
+/* ============ Reduced motion & mobile particle caps ============ */
+
+@media (max-width: 768px) {
+  .leaf:nth-child(n + 9),
+  .ember:nth-child(n + 9),
+  .void-p:nth-child(n + 9) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .leaf,
+  .leaf > i,
+  .ember,
+  .void-p,
+  .fog {
+    animation: none !important;
+    display: none !important;
+  }
+
+  .cloud {
+    animation: none !important;
+  }
+
+  .nav-btn,
+  .nav-label,
+  .block-icon-frame,
+  .mc-btn {
+    transition-duration: 0.01ms !important;
+  }
+}
