@@ -195,10 +195,7 @@ export default function Overworld({ go }: { go: (d: DimId) => void }) {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             className="flex flex-col items-center"
           >
-            <span className="inline-flex items-center gap-2.5 mb-7 px-4 py-2.5 bg-[#101508]/90 border-2 border-[#6abe30]/60 shadow-[0_0_16px_rgba(106,190,48,0.3)]">
-              <span className="w-2 h-2 bg-[#6abe30] animate-pulse shadow-[0_0_8px_rgba(106,190,48,0.9)]" />
-              <span className="font-pixel text-[9px] tracking-widest text-[#8fd94f]">{PROFILE.status}</span>
-            </span>
+
 
             <p className="font-pixel text-[10px] md:text-xs text-[#2c4a17] mb-5 text-shadow-none">
               {PROFILE.greeting}

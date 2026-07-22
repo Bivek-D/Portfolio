@@ -71,3 +71,36 @@ export default defineConfig([
   },
 ])
 ```
+1. First-time Setup / Reinstalling
+If you need to do a clean install of the dependencies (for example, if you run into environment issues or are deploying to a new machine), execute:
+
+bash
+# Navigate to the app directory
+cd app
+# Clean previous node_modules and locks (especially since the lockfile previously 
+# referenced an unreachable custom mirror: npm.mirrors.msh.team)
+rm -rf node_modules package-lock.json
+# Install dependencies using the official npm registry
+npm install
+2. Running the Development Server
+To start the local development server with Hot Module Replacement (HMR):
+
+bash
+cd app
+npm run dev
+Note: Currently, the development server is already running in your workspace terminal at http://localhost:3000/.
+
+3. Building for Production
+To bundle the application in production mode:
+
+bash
+cd app
+npm run build
+This compiles the code into optimized static assets in the app/dist/ directory.
+
+4. Previewing the Production Build
+To test the built production files locally:
+
+bash
+cd app
+npm run preview

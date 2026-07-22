@@ -26,14 +26,14 @@ export default function TheEnd() {
           DIMENSION 03
         </p>
         <h1 className="font-pixel text-3xl md:text-5xl text-[#d3a1f5] text-shadow-pixel mb-7">
-          THE END
+          CODE-WORK
         </h1>
         <p className="text-[#cdbce8] max-w-md mx-auto leading-relaxed mb-9">
           Development &amp; Projects lives here — dev work, GitHub stats, system design.
           This dimension is still generating.
         </p>
         <p className="font-pixel text-[9px] text-white/40 tracking-widest">
-          CONTENT ARRIVES IN PHASE 2
+          Working on this page :D
         </p>
       </div>
     </section>

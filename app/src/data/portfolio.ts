@@ -4,7 +4,7 @@
 ------------------------------------------------------------------- */
 
 export const PROFILE = {
-  name: 'ALEX',
+  name: 'BIVEK',
   greeting: '> HELLO WORLD, I AM',
   tagline: 'Full-stack developer & video editor — crafting digital worlds, one block at a time.',
   status: 'OPEN TO WORK',
@@ -18,12 +18,12 @@ export interface Interest {
 }
 
 export const INTERESTS: Interest[] = [
-  { icon: 'sword', label: 'Game Design' },
+  { icon: 'sword', label: 'Ai Automation' },
   { icon: 'camera', label: 'Cinematography' },
   { icon: 'code', label: 'Open Source' },
   { icon: 'star', label: 'Motion Graphics' },
-  { icon: 'block', label: 'Minecraft Modding' },
-  { icon: 'note', label: 'Lofi & Synthwave' },
+  { icon: 'block', label: 'Backend Developer' },
+  { icon: 'note', label: 'Pop' },
 ];
 
 export interface Skill {
@@ -33,12 +33,12 @@ export interface Skill {
 }
 
 export const SKILLS: Skill[] = [
-  { name: 'TypeScript', level: 9, group: 'dev' },
-  { name: 'React / Next.js', level: 9, group: 'dev' },
-  { name: 'Node.js & APIs', level: 8, group: 'dev' },
-  { name: 'GSAP / Framer Motion', level: 8, group: 'dev' },
+  { name: 'Java', level: 9, group: 'dev' },
+  { name: 'Spring-Boot', level: 9, group: 'dev' },
+  { name: 'PostgreSQL', level: 8, group: 'dev' },
+  { name: 'N8N', level: 8, group: 'dev' },
   { name: 'DaVinci Resolve', level: 9, group: 'edit' },
-  { name: 'Premiere Pro', level: 8, group: 'edit' },
+  { name: 'After Effects', level: 8, group: 'edit' },
   { name: 'Motion Graphics', level: 7, group: 'edit' },
   { name: 'Color Grading', level: 8, group: 'edit' },
 ];
@@ -52,23 +52,82 @@ export interface TimelineEvent {
 export const TIMELINE: TimelineEvent[] = [
   {
     year: '2026',
-    title: 'Dimension Portfolio launches',
+    title: 'Minecraft-Style Portfolio launches',
     desc: 'This very site — a cinematic portfolio spanning three dimensions.',
   },
   {
     year: '2025',
-    title: 'Lead editor on 40+ client projects',
-    desc: 'Commercials, music videos and branded content end to end.',
+    title: 'Build Doc Bot',
+    desc: 'Ai Health Care Assisstant With Booking automation',
   },
   {
     year: '2024',
-    title: 'Shipped first full-stack SaaS app',
-    desc: 'From schema to deployment — and actual paying users.',
+    title: 'First Editing Gig',
+    desc: 'Transformed video from raw clips to Pure Enjoyable Video',
   },
   {
     year: '2023',
     title: 'Hello, world',
     desc: 'Wrote the first line of code. Immediately broke production (locally).',
+  },
+];
+
+/* ------------------------------------------------------------------
+   Editing projects — used in the Nether (Editing & Production) section.
+   To add a video, paste a YouTube embed URL into the videoUrl field,
+   e.g. "https://www.youtube.com/embed/dQw4w9WgXcQ"
+------------------------------------------------------------------- */
+
+export interface EditingProject {
+  id: number;
+  title: string;
+  desc: string;
+  category: string;
+  videoUrl: string;
+}
+
+export const EDITING_PROJECTS: EditingProject[] = [
+  {
+    id: 1,
+    title: 'Project One',
+    desc: 'Add a description of this editing project.',
+    category: 'SHORT FILM',
+    videoUrl: '',
+  },
+  {
+    id: 2,
+    title: 'Project Two',
+    desc: 'Add a description of this editing project.',
+    category: 'MUSIC VIDEO',
+    videoUrl: '',
+  },
+  {
+    id: 3,
+    title: 'Project Three',
+    desc: 'Add a description of this editing project.',
+    category: 'COMMERCIAL',
+    videoUrl: '',
+  },
+  {
+    id: 4,
+    title: 'Project Four',
+    desc: 'Add a description of this editing project.',
+    category: 'MOTION GFX',
+    videoUrl: '',
+  },
+  {
+    id: 5,
+    title: 'Project Five',
+    desc: 'Add a description of this editing project.',
+    category: 'COLOR GRADE',
+    videoUrl: '',
+  },
+  {
+    id: 6,
+    title: 'Project Six',
+    desc: 'Add a description of this editing project.',
+    category: 'VFX',
+    videoUrl: '',
   },
 ];
 

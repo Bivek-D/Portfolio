@@ -20,7 +20,7 @@ export interface VideoSlot {
 
 export const NETHER_HERO = {
   label: 'DIMENSION 02',
-  title: 'THE NETHER',
+  title: 'DAMEO',
   subtitle: 'EDITING & PRODUCTION',
   tagline:
     'Cuts that hit like a crit — cinematic edits, motion graphics and color work forged in the heat.',
