@@ -12,7 +12,6 @@ import {
   SOFTWARE,
   WORKFLOW,
   type VideoSlot,
-  type ReelSlot,
 } from '@/data/nether';
 import type { DimId } from '@/lib/dimensions';
 
@@ -40,8 +39,6 @@ const fadeUp = {
 /* ---------------- video card ---------------- */
 
 function VideoCard({ slot }: { slot: VideoSlot }) {
-  const hasVideo = slot.embedUrl || slot.videoUrl;
-
   return (
     <div className="nether-card group transition-transform duration-200 hover:-translate-y-1">
       {/* video / thumbnail area */}

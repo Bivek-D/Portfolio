@@ -11,6 +11,7 @@ export interface VideoSlot {
 }
 
 export const NETHER_HERO = {
+  label: 'WELCOME TO NETHER',
   title: 'DAMEO',
   subtitle: 'EDITING & PRODUCTION',
   tagline:
@@ -25,8 +26,9 @@ export const NETHER_STATS = [
 
 export const SHOWREEL = {
   title: 'SHOWREEL 2026',
-  subtitle: 'A tour through the best cuts of the year.',
-  duration: '01:30',
+  subtitle: 'A quick runthrough of me.',
+  duration: '00:55',
+  embedUrl: 'https://player.cloudinary.com/embed/?cloud_name=jp56lzmk&public_id=show1',
   videoUrl: ''
 };
 
