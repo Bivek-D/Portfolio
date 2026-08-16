@@ -22,7 +22,7 @@ export default function Home() {
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    document.title = `Dimension Portfolio — ${getDimension(current).name}`;
+    document.title = `Dameo / Bivek Daimary — ${getDimension(current).name}`;
   }, [current]);
 
   /**

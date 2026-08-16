@@ -1,14 +1,17 @@
-/* ------------------------------------------------------------------
-   Portfolio content — edit this single file to make the site yours.
-   Everything here is placeholder text ready to be swapped out.
-------------------------------------------------------------------- */
-
 export const PROFILE = {
   name: 'BIVEK',
   greeting: '> HELLO WORLD, I AM',
   tagline: 'Full-stack developer & video editor — crafting digital worlds, one block at a time.',
   status: 'OPEN TO WORK',
-  about: `I'm a developer and video editor who treats every project like a new world seed — full of possibility, waiting to be built. By day I architect full-stack web apps with TypeScript and React; by night I'm in the edit bay cutting cinematic sequences, motion graphics, and color-graded stories. I love the space where engineering meets storytelling: performant code that also makes people feel something. When I'm not shipping products or renders, you'll find me modding Minecraft, chasing the perfect synthwave playlist, or over-engineering my dotfiles.`,
+  about: `Hi, I'm Bivek, also known as Dameo.
+
+I'm a programmer, editor, builder, and lifelong dreamer. I enjoy turning ideas into reality—whether that's through code, storytelling, or creative editing. Music fuels much of my work, and I love creating worlds through visuals, emotion, and imagination.
+
+On the technical side, I'm focused on becoming a strong software engineer. My main interests are backend development, system design, Java, Spring Boot, databases, Linux, Docker, and building scalable applications that solve real problems. I enjoy debugging, understanding how systems work under the hood, and writing software that is both practical and reliable.
+
+Beyond traditional software, I'm deeply interested in AI, automation, and intelligent systems. I'm fascinated by how machine learning and automation can enhance products, eliminate repetitive work, and create entirely new experiences. My long-term goal is to bridge strong software engineering fundamentals with AI engineering and contribute to building advanced intelligent systems.
+
+Whether I'm building an IoT project, designing a backend service, editing a cinematic video, exploring new ideas, or chasing ambitious goals, I'm always driven by one thing: creating something meaningful that didn't exist before.`,
   location: 'Spawn Point · Earth',
 };
 
@@ -38,7 +41,7 @@ export const SKILLS: Skill[] = [
   { name: 'PostgreSQL', level: 8, group: 'dev' },
   { name: 'N8N', level: 8, group: 'dev' },
   { name: 'DaVinci Resolve', level: 9, group: 'edit' },
-  { name: 'After Effects', level: 8, group: 'edit' },
+  { name: 'After Effects', level: 9, group: 'edit' },
   { name: 'Motion Graphics', level: 7, group: 'edit' },
   { name: 'Color Grading', level: 8, group: 'edit' },
 ];
@@ -72,76 +75,17 @@ export const TIMELINE: TimelineEvent[] = [
   },
 ];
 
-/* ------------------------------------------------------------------
-   Editing projects — used in the Nether (Editing & Production) section.
-   To add a video, paste a YouTube embed URL into the videoUrl field,
-   e.g. "https://www.youtube.com/embed/dQw4w9WgXcQ"
-------------------------------------------------------------------- */
-
-export interface EditingProject {
-  id: number;
-  title: string;
-  desc: string;
-  category: string;
-  videoUrl: string;
-}
-
-export const EDITING_PROJECTS: EditingProject[] = [
-  {
-    id: 1,
-    title: 'Project One',
-    desc: 'Add a description of this editing project.',
-    category: 'SHORT FILM',
-    videoUrl: '',
-  },
-  {
-    id: 2,
-    title: 'Project Two',
-    desc: 'Add a description of this editing project.',
-    category: 'MUSIC VIDEO',
-    videoUrl: '',
-  },
-  {
-    id: 3,
-    title: 'Project Three',
-    desc: 'Add a description of this editing project.',
-    category: 'COMMERCIAL',
-    videoUrl: '',
-  },
-  {
-    id: 4,
-    title: 'Project Four',
-    desc: 'Add a description of this editing project.',
-    category: 'MOTION GFX',
-    videoUrl: '',
-  },
-  {
-    id: 5,
-    title: 'Project Five',
-    desc: 'Add a description of this editing project.',
-    category: 'COLOR GRADE',
-    videoUrl: '',
-  },
-  {
-    id: 6,
-    title: 'Project Six',
-    desc: 'Add a description of this editing project.',
-    category: 'VFX',
-    videoUrl: '',
-  },
-];
-
 export interface Social {
   name: string;
   url: string;
-  icon: 'github' | 'linkedin' | 'youtube' | 'x';
+  icon: 'github' | 'linkedin' | 'youtube' | 'discord';
 }
 
 export const SOCIALS: Social[] = [
-  { name: 'GitHub', url: 'https://github.com/', icon: 'github' },
-  { name: 'LinkedIn', url: 'https://linkedin.com/', icon: 'linkedin' },
+  { name: 'GitHub', url: 'https://github.com/Bivek-D', icon: 'github' },
+  { name: 'LinkedIn', url: 'www.linkedin.com/in/bivek-daimary-202332322', icon: 'linkedin' },
   { name: 'YouTube', url: 'https://youtube.com/', icon: 'youtube' },
-  { name: 'X', url: 'https://x.com/', icon: 'x' },
+  { name: 'Discord', url: 'https://discord.com/', icon: 'discord' },
 ];
 
 export const RESUME_URL = '/resume.pdf';

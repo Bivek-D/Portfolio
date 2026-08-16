@@ -2,7 +2,18 @@ import type { ReactNode } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Embers } from '@/components/Particles';
 import { NETHERRACK_TILE } from '@/lib/pixels';
-import { EDITING_PROJECTS, SKILLS } from '@/data/portfolio';
+import {
+  NETHER_HERO,
+  NETHER_STATS,
+  SHOWREEL,
+  PROJECTS,
+  REELS,
+  CLIENTS,
+  SOFTWARE,
+  WORKFLOW,
+  type VideoSlot,
+  type ReelSlot,
+} from '@/data/nether';
 import type { DimId } from '@/lib/dimensions';
 
 /* ---------------- helpers ---------------- */
@@ -26,11 +37,87 @@ const fadeUp = {
   transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
 };
 
+/* ---------------- video card ---------------- */
+
+function VideoCard({ slot }: { slot: VideoSlot }) {
+  const hasVideo = slot.embedUrl || slot.videoUrl;
+
+  return (
+    <div className="nether-card group transition-transform duration-200 hover:-translate-y-1">
+      {/* video / thumbnail area */}
+      <div className="relative aspect-video bg-[#0d0303] overflow-hidden">
+        {slot.embedUrl ? (
+          <iframe
+            src={slot.embedUrl}
+            title={slot.title}
+            className="w-full h-full border-0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : slot.videoUrl ? (
+          <video
+            src={slot.videoUrl}
+            title={slot.title}
+            className="w-full h-full object-cover"
+            controls
+            preload="metadata"
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 nether-placeholder">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#f24a1d"
+              strokeWidth="1.5"
+              opacity="0.4"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="2" />
+              <path d="M7 2v20M17 2v20M2 7h5M17 7h5M2 12h20M2 17h5M17 17h5" />
+            </svg>
+            <span className="font-pixel text-[7px] text-[#f24a1d]/35 tracking-wider">
+              VIDEO {slot.id}
+            </span>
+          </div>
+        )}
+        {/* duration badge */}
+        <span className="absolute bottom-2 right-2 font-pixel text-[7px] bg-black/70 text-[#ff8c5a] px-2 py-0.5 tracking-wider">
+          {slot.duration}
+        </span>
+      </div>
+      {/* info */}
+      <div className="p-5">
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <span className="inline-block font-pixel text-[7px] text-[#1a0804] bg-[#f27b1a] px-2 py-1 shadow-[2px_2px_0_rgba(0,0,0,0.5)]">
+            {slot.category}
+          </span>
+          <span className="font-pixel text-[7px] text-[#c9a88e]/60">
+            {slot.year}
+          </span>
+        </div>
+        <h3 className="text-base font-bold text-[#ffd4b8] mb-2">
+          {slot.title}
+        </h3>
+        <div className="flex flex-wrap gap-1.5">
+          {slot.tools.map((tool) => (
+            <span
+              key={tool}
+              className="font-pixel text-[6px] text-[#ff8c5a]/70 border border-[#ff8c5a]/20 px-1.5 py-0.5 tracking-wider"
+            >
+              {tool}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- main section ---------------- */
 
 export default function Nether({ go }: { go: (d: DimId) => void }) {
   const reduced = useReducedMotion();
-  const editSkills = SKILLS.filter((s) => s.group === 'edit');
 
   return (
     <div className="relative">
@@ -75,23 +162,38 @@ export default function Nether({ go }: { go: (d: DimId) => void }) {
             }}
             className="flex flex-col items-center"
           >
-
+            <p className="font-pixel text-[10px] md:text-xs text-[#f27b1a]/70 mb-2">
+              {NETHER_HERO.label}
+            </p>
 
             <p className="font-pixel text-[10px] md:text-xs text-[#f27b1a]/70 mb-5">
-              EDITING &amp; PRODUCTION
+              {NETHER_HERO.subtitle}
             </p>
 
             <h1
               className="font-pixel text-[clamp(2.4rem,9vw,5rem)] leading-none text-[#ff6b35] mb-6"
               style={{ textShadow: '4px 4px 0 rgba(0,0,0,0.6)' }}
             >
-              DAMEO
+              {NETHER_HERO.title}
             </h1>
 
             <p className="max-w-xl text-base md:text-lg font-medium text-[#e8c4ae] leading-relaxed mb-10">
-              Where raw footage is forged into cinematic stories — color
-              grading, motion graphics, and visual storytelling.
+              {NETHER_HERO.tagline}
             </p>
+
+            {/* stats row */}
+            <div className="flex flex-wrap items-center justify-center gap-8 mb-10">
+              {NETHER_STATS.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <span className="block font-pixel text-lg md:text-2xl text-[#ff6b35]">
+                    {stat.value}
+                  </span>
+                  <span className="font-pixel text-[7px] text-[#c9a88e]/60 tracking-wider">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
 
             <p className="mt-4 font-pixel text-[8px] tracking-widest text-[#f27b1a]/50">
               SCROLL TO EXPLORE ▼
@@ -135,77 +237,167 @@ export default function Nether({ go }: { go: (d: DimId) => void }) {
         />
 
         <div className="relative max-w-5xl mx-auto px-6 py-24 flex flex-col gap-24">
-          {/* -------- PREVIOUS WORK (VIDEO GRID) -------- */}
-          <motion.section {...fadeUp} aria-label="Previous work">
-            <NetherTitle>PREVIOUS WORK</NetherTitle>
-            <p className="text-sm text-[#c9a88e] mb-8 max-w-2xl">
-              A selection of editing and post-production projects — from
-              short films to motion graphics.
+
+          {/* -------- SHOWREEL -------- */}
+          <motion.section {...fadeUp} aria-label="Showreel">
+            <NetherTitle>SHOWREEL</NetherTitle>
+            <div className="nether-card overflow-hidden">
+              <div className="relative aspect-video bg-[#0d0303]">
+                {SHOWREEL.embedUrl ? (
+                  <iframe
+                    src={SHOWREEL.embedUrl}
+                    title={SHOWREEL.title}
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : SHOWREEL.videoUrl ? (
+                  <video
+                    src={SHOWREEL.videoUrl}
+                    title={SHOWREEL.title}
+                    className="w-full h-full object-cover"
+                    controls
+                    preload="metadata"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 nether-placeholder">
+                    <svg
+                      width="56"
+                      height="56"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#f24a1d"
+                      strokeWidth="1.5"
+                      opacity="0.35"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                    <span className="font-pixel text-[9px] text-[#f24a1d]/40 tracking-wider">
+                      SHOWREEL COMING SOON
+                    </span>
+                  </div>
+                )}
+              </div>
+              <div className="p-6 md:p-8">
+                <h3 className="font-pixel text-sm text-[#ff8c5a] mb-2">
+                  {SHOWREEL.title}
+                </h3>
+                <p className="text-sm text-[#c9a88e] leading-relaxed">
+                  {SHOWREEL.subtitle}
+                </p>
+                <span className="inline-block mt-3 font-pixel text-[7px] text-[#c9a88e]/50 tracking-wider">
+                  DURATION: {SHOWREEL.duration}
+                </span>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* -------- PROJECTS (VIDEO GRID) -------- */}
+          <motion.section {...fadeUp} aria-label="Editing projects">
+            <NetherTitle>PROJECTS</NetherTitle>
+            <p className="text-sm text-[#c9a88e] mb-8 max-w-2.5xl">
+              A selection of editing and post-production work — from promo
+              videos to documentaries.(Preview version)
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {EDITING_PROJECTS.map((project) => (
+              {PROJECTS.map((slot) => (
+                <VideoCard key={slot.id} slot={slot} />
+              ))}
+            </div>
+            <div className="flex items-center justify-center gap-3 mt-8">
+              <span className="w-1.5 h-1.5 bg-[#f24a1d]/30 animate-pulse" />
+              <span className="font-pixel text-[8px] md:text-[10px] text-[#ff8c5a]/40 tracking-widest uppercase select-none">
+                ...and many more
+              </span>
+              <span className="w-1.5 h-1.5 bg-[#f24a1d]/30 animate-pulse" />
+            </div>
+          </motion.section>
+
+          {/* -------- REELS -------- */}
+          <motion.section {...fadeUp} aria-label="Reels">
+            <NetherTitle>REELS</NetherTitle>
+            <p className="text-sm text-[#c9a88e] mb-8 max-w-2xl">
+              Short-form vertical edits — quick cuts, transitions, and
+              visual storytelling in under 60 seconds.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+              {REELS.map((reel) => (
                 <div
-                  key={project.id}
+                  key={reel.id}
                   className="nether-card group transition-transform duration-200 hover:-translate-y-1"
                 >
-                  {/* video / thumbnail area */}
-                  <div className="relative aspect-video bg-[#0d0303] overflow-hidden">
-                    {project.videoUrl ? (
+                  {/* 9:16 vertical video area */}
+                  <div className="relative bg-[#0d0303] overflow-hidden" style={{ aspectRatio: '9 / 16' }}>
+                    {reel.embedUrl ? (
                       <iframe
-                        src={project.videoUrl}
-                        title={project.title}
+                        src={reel.embedUrl}
+                        title={reel.title}
                         className="w-full h-full border-0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                       />
+                    ) : reel.videoUrl ? (
+                      <video
+                        src={reel.videoUrl}
+                        title={reel.title}
+                        className="w-full h-full object-cover"
+                        controls
+                        preload="metadata"
+                      />
                     ) : (
                       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 nether-placeholder">
                         <svg
-                          width="36"
-                          height="36"
+                          width="28"
+                          height="28"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="#f24a1d"
                           strokeWidth="1.5"
                           opacity="0.4"
                         >
-                          <rect x="2" y="2" width="20" height="20" rx="2" />
-                          <path d="M7 2v20M17 2v20M2 7h5M17 7h5M2 12h20M2 17h5M17 17h5" />
+                          <polygon points="5 3 19 12 5 21 5 3" />
                         </svg>
-                        <span className="font-pixel text-[7px] text-[#f24a1d]/35 tracking-wider">
-                          VIDEO {project.id}
+                        <span className="font-pixel text-[6px] text-[#f24a1d]/35 tracking-wider">
+                          REEL {reel.id.replace('r', '')}
                         </span>
                       </div>
                     )}
                   </div>
                   {/* info */}
-                  <div className="p-5">
-                    <span className="inline-block font-pixel text-[7px] text-[#1a0804] bg-[#f27b1a] px-2 py-1 mb-3 shadow-[2px_2px_0_rgba(0,0,0,0.5)]">
-                      {project.category}
-                    </span>
-                    <h3 className="text-base font-bold text-[#ffd4b8] mb-1.5">
-                      {project.title}
+                  <div className="p-4">
+                    <h3 className="text-sm font-bold text-[#ffd4b8] mb-1 truncate">
+                      {reel.title}
                     </h3>
-                    <p className="text-sm text-[#c9a88e] leading-relaxed">
-                      {project.desc}
-                    </p>
+                    {reel.client && (
+                      <p className="font-pixel text-[6px] text-[#c9a88e]/60 tracking-wider">
+                        {reel.client}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
             </div>
+            <div className="flex items-center justify-center gap-3 mt-8">
+              <span className="w-1.5 h-1.5 bg-[#f24a1d]/30 animate-pulse" />
+              <span className="font-pixel text-[8px] md:text-[10px] text-[#ff8c5a]/40 tracking-widest uppercase select-none">
+                ...and many more
+              </span>
+              <span className="w-1.5 h-1.5 bg-[#f24a1d]/30 animate-pulse" />
+            </div>
           </motion.section>
 
-          {/* -------- EDITING TOOLKIT / SKILLS -------- */}
-          <motion.section {...fadeUp} aria-label="Editing toolkit">
-            <NetherTitle>EDITING TOOLKIT</NetherTitle>
+
+          {/* -------- SOFTWARE TOOLKIT -------- */}
+          <motion.section {...fadeUp} aria-label="Software toolkit">
+            <NetherTitle>SOFTWARE TOOLKIT</NetherTitle>
             <div className="nether-card p-7 md:p-9">
               <h3 className="font-pixel text-[10px] text-[#ff8c5a] mb-6">
-                POST-PRODUCTION
+                POST-PRODUCTION ARSENAL
               </h3>
               <ul className="flex flex-col gap-5">
-                {editSkills.map((s) => (
+                {SOFTWARE.map((s) => (
                   <li key={s.name}>
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center justify-between mb-1">
                       <span className="text-sm font-semibold text-[#ffd4b8]">
                         {s.name}
                       </span>
@@ -213,6 +405,9 @@ export default function Nether({ go }: { go: (d: DimId) => void }) {
                         LVL {s.level}
                       </span>
                     </div>
+                    <p className="text-xs text-[#c9a88e]/60 mb-2 italic">
+                      {s.note}
+                    </p>
                     <div
                       className="flex gap-[3px]"
                       role="img"
@@ -228,6 +423,57 @@ export default function Nether({ go }: { go: (d: DimId) => void }) {
                   </li>
                 ))}
               </ul>
+            </div>
+          </motion.section>
+
+          {/* -------- WORKFLOW -------- */}
+          <motion.section {...fadeUp} aria-label="Workflow">
+            <NetherTitle>WORKFLOW</NetherTitle>
+            <p className="text-sm text-[#c9a88e] mb-8 max-w-2xl">
+              From brief to delivery — six phases that shape every project.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {WORKFLOW.map((w) => (
+                <div
+                  key={w.step}
+                  className="nether-card p-6 transition-transform duration-200 hover:-translate-y-1"
+                >
+                  <span className="inline-block font-pixel text-lg text-[#ff6b35]/30 mb-3">
+                    {w.step}
+                  </span>
+                  <h3 className="font-pixel text-[10px] text-[#ff8c5a] mb-2">
+                    {w.title}
+                  </h3>
+                  <p className="text-sm text-[#c9a88e] leading-relaxed">
+                    {w.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* -------- CLIENTS -------- */}
+          <motion.section {...fadeUp} aria-label="Clients">
+            <NetherTitle>CLIENTS</NetherTitle>
+            <div className="grid sm:grid-cols-2 gap-5">
+              {CLIENTS.map((c) => (
+                <div
+                  key={c.name}
+                  className="nether-card p-6 flex items-center gap-5 transition-transform duration-200 hover:-translate-y-1"
+                >
+                  <span className="grid place-items-center w-12 h-12 shrink-0 bg-[#2a0e06] border-2 border-[#f24a1d]/20">
+                    <span className="font-pixel text-sm text-[#ff6b35]">
+                      {c.name.charAt(0)}
+                    </span>
+                  </span>
+                  <div>
+                    <h3 className="font-pixel text-[10px] text-[#ffd4b8] mb-1">
+                      {c.name}
+                    </h3>
+                    <p className="text-xs text-[#c9a88e]/70">{c.detail}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.section>
 
