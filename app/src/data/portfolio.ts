@@ -85,7 +85,7 @@ export const SOCIALS: Social[] = [
   { name: 'GitHub', url: 'https://github.com/Bivek-D', icon: 'github' },
   { name: 'LinkedIn', url: 'www.linkedin.com/in/bivek-daimary-202332322', icon: 'linkedin' },
   { name: 'YouTube', url: 'https://youtube.com/', icon: 'youtube' },
-  { name: 'Discord', url: 'https://discord.com/', icon: 'discord' },
+  { name: 'Discord', url: 'https://discord.gg/3R5RwXakg', icon: 'discord' },
 ];
 
 export const RESUME_URL = '/resume.pdf';
