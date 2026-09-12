@@ -61,7 +61,7 @@ export const TIMELINE: TimelineEvent[] = [
   {
     year: '2025',
     title: 'Build Doc Bot',
-    desc: 'Ai Health Care Assisstant With Booking automation',
+    desc: 'AI Healthcare Assistant with booking automation',
   },
   {
     year: '2024',

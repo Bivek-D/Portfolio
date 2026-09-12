@@ -89,7 +89,7 @@ export const PROJECTS: VideoSlot[] = [
   },
   {
     id: 'p7',
-    title: 'Faceless Strangers Eplaination',
+    title: 'Faceless Strangers Explanation',
     category: 'Horror, Explainer. Faceless',
     duration: '6:20',
     tools: ['After Effects', 'Resolve'],
@@ -145,7 +145,7 @@ export const REELS: ReelSlot[] = [
   {
     id: 'r5',
     title: 'Quick Explaining',
-    client: 'Dr Hmeo',
+    client: 'Dr Hemo',
     embedUrl: 'https://player.cloudinary.com/embed/?cloud_name=jp56lzmk&public_id=acnef',
   },
 ];

@@ -22,7 +22,7 @@ export default function Home() {
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    document.title = `Dameo / Bivek Daimary — ${getDimension(current).name}`;
+    document.title = `Bivek Daimary — ${getDimension(current).name} | Developer & Video Editor`;
   }, [current]);
 
   /**
