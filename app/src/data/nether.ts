@@ -87,6 +87,24 @@ export const PROJECTS: VideoSlot[] = [
     year: '2026',
     embedUrl: 'https://player.cloudinary.com/embed/?cloud_name=jp56lzmk&public_id=2',
   },
+  {
+    id: 'p7',
+    title: 'Faceless Strangers Eplaination',
+    category: 'Horror, Explainer. Faceless',
+    duration: '6:20',
+    tools: ['After Effects', 'Resolve'],
+    year: '2026',
+    embedUrl: 'https://player.cloudinary.com/embed/?cloud_name=jp56lzmk&public_id=sam',
+  },
+  {
+    id: 'p8',
+    title: 'GhostFace',
+    category: 'Horror, Explainer, Faceless',
+    duration: '1:20',
+    tools: ['After Effects'],
+    year: '2026',
+    embedUrl: 'https://player.cloudinary.com/embed/?cloud_name=jp56lzmk&public_id=Comp_1',
+  },
 ];
 
 
@@ -122,7 +140,7 @@ export const REELS: ReelSlot[] = [
     id: 'r4',
     title: 'Active Short',
     client: '',
-    embedUrl:'https://player.cloudinary.com/embed/?cloud_name=jp56lzmk&public_id=17',
+    embedUrl: 'https://player.cloudinary.com/embed/?cloud_name=jp56lzmk&public_id=17',
   },
   {
     id: 'r5',
