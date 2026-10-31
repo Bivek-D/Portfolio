@@ -1,5 +1,6 @@
 import { useState, type CSSProperties } from 'react';
 import BlockIcon from './BlockIcon';
+import DimLink from './DimLink';
 import { DIMENSIONS, type DimId } from '@/lib/dimensions';
 
 interface Props {
@@ -49,19 +50,19 @@ export default function Navbar({ current, onSelect }: Props) {
               <span className="nav-label nav-label-left" aria-hidden="true">
                 {d.name}
               </span>
-              <button
-                type="button"
+              <DimLink
+                to={d.id}
+                go={onSelect}
                 className={`nav-btn${active ? ' active' : ''}`}
                 aria-label={`Travel to ${d.name} — ${d.sub}`}
                 aria-current={active ? 'page' : undefined}
-                onClick={() => onSelect(d.id)}
                 onFocus={() => setHover(i)}
                 onBlur={() => setHover(null)}
               >
                 <span className="block-icon-frame">
                   <BlockIcon type={d.block} size={40} />
                 </span>
-              </button>
+              </DimLink>
               <span className="nav-label nav-label-right" aria-hidden="true">
                 {d.sub}
               </span>

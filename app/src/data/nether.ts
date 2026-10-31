@@ -74,7 +74,7 @@ export const PROJECTS: VideoSlot[] = [
     title: 'Hair',
     category: 'EDUCATION',
     duration: '04:05',
-    tools: ['After Effects', 'Resolve'],
+    tools: ['After Effects', 'Davinci Resolve'],
     year: '2026',
     embedUrl: 'https://player.cloudinary.com/embed/?cloud_name=jp56lzmk&public_id=3',
   },
@@ -92,7 +92,7 @@ export const PROJECTS: VideoSlot[] = [
     title: 'Faceless Strangers Explanation',
     category: 'Horror, Explainer. Faceless',
     duration: '6:20',
-    tools: ['After Effects', 'Resolve'],
+    tools: ['After Effects', 'Davinci Resolve'],
     year: '2026',
     embedUrl: 'https://player.cloudinary.com/embed/?cloud_name=jp56lzmk&public_id=sam',
   },
@@ -155,12 +155,13 @@ export const CLIENTS = [
   { name: 'Almas Reels', detail: '2 videos · reels' },
 ];
 
+/** `perks` are the enchantment-style lines in each tool's hover tooltip. */
 export const SOFTWARE = [
-  { name: 'DaVinci Resolve', level: 9, note: 'edit · color · deliver' },
-  { name: 'After Effects', level: 9, note: 'motion graphics' },
-  { name: 'Premiere Pro', level: 8, note: 'fast turnarounds' },
-  { name: 'Audition', level: 6, note: 'sound cleanup' },
-  { name: 'Photoshop', level: 8, note: 'thumbnails & key art' },
+  { name: 'DaVinci Resolve', level: 9, note: 'edit · color · deliver', perks: ['Color Grading V', 'Editing IV', 'Delivery III'] },
+  { name: 'After Effects', level: 9, note: 'motion graphics', perks: ['Motion Graphics V', 'Compositing IV', 'Titles III'] },
+  { name: 'Premiere Pro', level: 8, note: 'fast turnarounds', perks: ['Quick Cuts IV', 'Assembly III'] },
+  { name: 'Audition', level: 6, note: 'sound cleanup', perks: ['Noise Removal III', 'Mixing II'] },
+  { name: 'Photoshop', level: 8, note: 'thumbnails & key art', perks: ['Thumbnail Art IV', 'Key Art III'] },
 ];
 
 export const WORKFLOW = [

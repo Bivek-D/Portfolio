@@ -5,7 +5,7 @@ import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
+  base: '/', // absolute paths so /nether and /end load assets correctly
   plugins: [inspectAttr(), react()],
   server: {
     port: 3000,

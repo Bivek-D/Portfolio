@@ -426,10 +426,12 @@ body {
 .nether-card {
   position: relative;
   background: rgba(26, 8, 4, 0.88);
-  border: 3px solid #1a0500;
+  border: 3px solid #4a1a0e;
+  /* warm outer glow, matching the hero (design r10) */
   box-shadow:
     inset 0 0 0 2px rgba(242, 74, 29, 0.18),
-    0 12px 32px rgba(0, 0, 0, 0.4);
+    0 12px 32px rgba(0, 0, 0, 0.4),
+    0 0 34px 2px rgba(255, 90, 26, 0.18);
   overflow: hidden;
 }
 
@@ -611,5 +613,197 @@ body {
   .block-icon-frame,
   .mc-btn {
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ======================================================================
+   Nether redesign (FigCraft r9/r10 + prototype p1–p3)
+   ====================================================================== */
+
+.font-pixelify {
+  font-family: 'Pixelify Sans', 'Press Start 2P', monospace;
+}
+
+/* Pixel-rounded box: two --n sized steps at every corner (matches the stepped vectors in the design). */
+.px-clip {
+  --n: 2px;
+  clip-path: polygon(
+    calc(var(--n) * 2) 0, calc(100% - var(--n) * 2) 0, calc(100% - var(--n) * 2) var(--n),
+    calc(100% - var(--n)) var(--n), calc(100% - var(--n)) calc(var(--n) * 2), 100% calc(var(--n) * 2),
+    100% calc(100% - var(--n) * 2), calc(100% - var(--n)) calc(100% - var(--n) * 2),
+    calc(100% - var(--n)) calc(100% - var(--n)), calc(100% - var(--n) * 2) calc(100% - var(--n)),
+    calc(100% - var(--n) * 2) 100%, calc(var(--n) * 2) 100%, calc(var(--n) * 2) calc(100% - var(--n)),
+    var(--n) calc(100% - var(--n)), var(--n) calc(100% - var(--n) * 2), 0 calc(100% - var(--n) * 2),
+    0 calc(var(--n) * 2), var(--n) calc(var(--n) * 2), var(--n) var(--n), calc(var(--n) * 2) var(--n)
+  );
+}
+
+/* Cave backdrop under the hero (render_underground.py): netherrack -> fortress bricks -> blackstone. */
+.nether-cave {
+  background-color: #120403;
+  background-image: url('/nether/cave.webp');
+  background-position: center top;
+  background-size: max(100%, 1440px) auto;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+.nether-glow-title {
+  text-shadow: 0 0 14px rgba(255, 106, 26, 0.6), 3px 3px 0 #1a0402;
+}
+
+/* Settings: "Motion off" pauses the background video and hides embers, like prefers-reduced-motion. */
+html[data-motion='off'] .ember {
+  display: none !important;
+}
+
+/* showreel mining wall shake while cracking */
+@keyframes mine-shake {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, -1px); }
+}
+.mine-shake {
+  animation: mine-shake 0.18s steps(2) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mine-shake {
+    animation: none;
+  }
+}
+
+/* chest cards (prototype p3): hover, keyboard focus or a first tap opens the lid */
+.chest .chest-light,
+.chest .chest-tag {
+  opacity: 0;
+  transition: opacity 0.35s ease-out;
+}
+.chest .chest-spark {
+  left: 50%;
+  top: 38%;
+  opacity: 0;
+  transition: left 0.42s cubic-bezier(0.22, 1, 0.36, 1), top 0.42s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s;
+}
+.chest .chest-hint {
+  transition: opacity 0.2s, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .chest .chest-lid,
+.group:focus-within .chest .chest-lid,
+.chest[data-open] .chest-lid {
+  transform: translate(-6px, -150%) rotate(-9deg);
+  opacity: 0;
+}
+.group:hover .chest .chest-body,
+.group:focus-within .chest .chest-body,
+.chest[data-open] .chest-body {
+  transform: translateY(115%);
+  opacity: 0;
+}
+.group:hover .chest .chest-hint,
+.group:focus-within .chest .chest-hint,
+.chest[data-open] .chest-hint {
+  opacity: 0;
+  transform: translateY(80px);
+}
+.group:hover .chest .chest-light,
+.group:focus-within .chest .chest-light,
+.chest[data-open] .chest-light {
+  opacity: 0.4;
+}
+.group:hover .chest .chest-tag,
+.group:focus-within .chest .chest-tag,
+.chest[data-open] .chest-tag {
+  opacity: 1;
+}
+.group:hover .chest .chest-spark,
+.group:focus-within .chest .chest-spark,
+.chest[data-open] .chest-spark {
+  left: var(--sx);
+  top: var(--sy);
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chest *,
+  .chest {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* reels hotbar (prototype p2): slots grow from 88x88 to the 232x412 reel card */
+.reel-stage {
+  --small: 88px;
+  --big-w: 232px;
+  --big-h: 412px;
+}
+.reel-bar {
+  width: calc(var(--small) * 5 + 10px * 4 + 24px);
+  height: calc(var(--small) + 24px);
+}
+.reel-card {
+  width: var(--small);
+  height: var(--small);
+  transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1), height 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s;
+}
+.reel-slot[data-big] .reel-card {
+  width: var(--big-w);
+  height: var(--big-h);
+}
+.reel-info,
+.reel-play {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.reel-slot[data-big] .reel-info,
+.reel-slot[data-big] .reel-play {
+  opacity: 1;
+  transition-delay: 0.12s;
+}
+.reel-shade {
+  opacity: 0.6;
+}
+.reel-key {
+  right: 8px;
+  bottom: 6px;
+}
+.reel-slot[data-big] .reel-key {
+  right: auto;
+  bottom: auto;
+  left: 12px;
+  top: 10px;
+}
+@media (max-width: 640px) {
+  .reel-stage {
+    --small: 48px;
+    --big-w: 150px;
+    --big-h: 266px;
+  }
+  .reel-bar {
+    width: calc(var(--small) * 5 + 6px * 4 + 20px);
+    max-width: 100%;
+    height: calc(var(--small) + 20px);
+  }
+  .reel-info span {
+    font-size: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reel-card {
+    transition: none;
+  }
+}
+
+/* touch screens: say "tap" instead of "hover" */
+.touch-only {
+  display: none;
+}
+@media (hover: none) {
+  .touch-only {
+    display: inline;
+  }
+  .hover-only {
+    display: none;
   }
 }

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import DimensionTransition from '@/components/DimensionTransition';
@@ -6,6 +7,8 @@ import Overworld from '@/sections/Overworld';
 import Nether from '@/sections/Nether';
 import TheEnd from '@/sections/TheEnd';
 import { getDimension, type DimId } from '@/lib/dimensions';
+import { applyHead, dimFromPath, pageFor } from '@/lib/seo';
+import { pageJsonLd } from '@/lib/structured-data';
 
 const SECTIONS: Record<DimId, React.ComponentType<{ go: (d: DimId) => void }>> = {
   overworld: Overworld,
@@ -16,21 +19,22 @@ const SECTIONS: Record<DimId, React.ComponentType<{ go: (d: DimId) => void }>> =
 const delay = (ms: number) => new Promise<void>((res) => setTimeout(res, ms));
 
 export default function Home() {
-  const [current, setCurrent] = useState<DimId>('overworld');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const current = dimFromPath(location.pathname);
   const [loading, setLoading] = useState<DimId | null>(null);
   const busy = useRef(false);
+  const [firstDim] = useState<DimId>(current);
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    document.title = `Bivek Daimary — ${getDimension(current).name} | Developer & Video Editor`;
-  }, [current]);
+    applyHead(current, pageJsonLd(current));
+    if (current !== firstDim) window.scrollTo(0, 0);
+  }, [current, firstDim]);
 
   /**
-   * Transition sequence (PRD §6.1):
-   * 1. loading overlay fades in over the current section
-   * 2. section swaps underneath the opaque overlay
-   * 3. "Loading terrain..." progress bar fills
-   * 4. overlay fades out, revealing the new dimension
+   * Transition: the loading overlay fades in over the current dimension, the route changes underneath it,
+   * the "Loading terrain..." bar fills, then the overlay fades out on the new dimension.
    */
   const go = useCallback(
     async (d: DimId) => {
@@ -38,24 +42,25 @@ export default function Home() {
       busy.current = true;
       setLoading(d);
       await delay(reduced ? 120 : 500);
-      setCurrent(d);
-      window.scrollTo(0, 0);
+      navigate(pageFor(d).path);
       await delay(reduced ? 250 : 1150);
       setLoading(null);
       busy.current = false;
     },
-    [current, reduced],
+    [current, reduced, navigate],
   );
 
   const Section = SECTIONS[current];
 
   return (
     <main className="min-h-screen bg-[#0b0b0d]">
-      <Navbar current={current} onSelect={go} />
+      {/* the Nether page has its own top bar and in-hero dimension switcher */}
+      {current !== 'nether' && <Navbar current={current} onSelect={go} />}
 
       <motion.div
         key={current}
-        initial={{ opacity: 0 }}
+        // the first page arrives pre-rendered: show it as-is, only fade in on dimension changes
+        initial={current === firstDim ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: reduced ? 0.1 : 0.5, ease: 'easeOut' }}
       >

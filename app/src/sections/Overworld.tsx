@@ -11,6 +11,7 @@ import { GROUND_TILE } from '@/lib/pixels';
 import { Leaves } from '@/components/Particles';
 import PixelIcon from '@/components/PixelIcon';
 import BlockIcon from '@/components/BlockIcon';
+import DimLink from '@/components/DimLink';
 import {
   PROFILE,
   INTERESTS,
@@ -214,12 +215,12 @@ export default function Overworld({ go }: { go: (d: DimId) => void }) {
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <button type="button" className="mc-btn mc-btn-green" onClick={() => go('end')}>
+              <DimLink to="end" go={go} className="mc-btn mc-btn-green">
                 VIEW PROJECTS
-              </button>
-              <button type="button" className="mc-btn mc-btn-dark" onClick={() => go('nether')}>
+              </DimLink>
+              <DimLink to="nether" go={go} className="mc-btn mc-btn-dark">
                 Editing Videos
-              </button>
+              </DimLink>
             </div>
 
             <p className="mt-12 font-pixel text-[8px] tracking-widest text-[#33511c]/80">
@@ -244,7 +245,7 @@ export default function Overworld({ go }: { go: (d: DimId) => void }) {
 
         <div className="relative max-w-5xl mx-auto px-6 py-24 flex flex-col gap-24">
           {/* -------- ABOUT + INTERESTS -------- */}
-          <motion.section {...fadeUp} aria-label="About me">
+          <motion.section {...fadeUp} id="about" className="scroll-mt-24" aria-label="About me">
             <SectionTitle>ABOUT ME</SectionTitle>
             <div className="grid lg:grid-cols-5 gap-6">
               <div className="mc-card mc-card-corner lg:col-span-3 p-7 md:p-9">
@@ -337,7 +338,7 @@ export default function Overworld({ go }: { go: (d: DimId) => void }) {
           </motion.section>
 
           {/* -------- RESUME + SOCIALS -------- */}
-          <motion.section {...fadeUp} aria-label="Resume and social links">
+          <motion.section {...fadeUp} id="contact" className="scroll-mt-24" aria-label="Resume and social links">
             <div className="mc-card mc-card-corner p-8 md:p-10 text-center">
               <h2 className="font-pixel text-sm md:text-base text-[#eaf6da] text-shadow-pixel-sm mb-3">
                 READY TO BUILD?
