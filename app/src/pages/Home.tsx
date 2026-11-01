@@ -54,8 +54,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#0b0b0d]">
-      {/* the Nether page has its own top bar and in-hero dimension switcher */}
-      {current !== 'nether' && <Navbar current={current} onSelect={go} />}
+      {/* the Overworld and Nether pages have their own top bar and in-hero dimension switcher */}
+      {current === 'end' && <Navbar current={current} onSelect={go} />}
 
       <motion.div
         key={current}

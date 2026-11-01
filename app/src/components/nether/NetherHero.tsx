@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { Embers } from '@/components/Particles';
-import BlockIcon from '@/components/BlockIcon';
-import DimLink from '@/components/DimLink';
-import { DIMENSIONS, type DimId } from '@/lib/dimensions';
+import DimensionSwitcher from '@/components/DimensionSwitcher';
+import type { DimId } from '@/lib/dimensions';
+import { useFitScale } from '@/lib/useFitScale';
 import { NETHERRACK_TILE } from '@/lib/pixels';
 import { NETHER_HERO, NETHER_STATS } from '@/data/nether';
 import HeroVideo from './HeroVideo';
@@ -15,43 +15,6 @@ const STAT_ICONS = [
   { rows: SPRITES.playbox, color: '#F2489C', cell: 3 },
   { rows: SPRITES.trophy, color: '#FFC23A', cell: 3.4 },
 ];
-
-function DimensionSwitcher({ go }: { go: (d: DimId) => void }) {
-  return (
-    <nav aria-label="Dimensions" className="flex items-center gap-4 sm:gap-[26px]">
-      {DIMENSIONS.map((d) => {
-        const on = d.id === 'nether';
-        return (
-          <PixelBox
-            key={d.id}
-            as={DimLink}
-            to={d.id}
-            go={go}
-            aria-label={`${d.name} — ${d.sub}`}
-            aria-current={on ? 'page' : undefined}
-            step={2}
-            border={on ? '#FF6A1A' : '#3C4458'}
-            borderWidth={on ? 4 : 3}
-            fill={on ? '#1A0604' : '#0A0C12'}
-            glow={on
-              ? 'drop-shadow(0 0 7px rgba(255,90,26,0.95)) drop-shadow(0 0 20px rgba(255,90,26,0.5))'
-              : 'drop-shadow(0 6px 7px rgba(0,0,0,0.7))'}
-            className={`${on ? 'w-[96px] h-[96px]' : 'w-[82px] h-[82px] hover:brightness-125'} transition-[filter]`}
-          >
-            {on ? (
-              <PixelBox step={1} border="#FF7A2A" fill="#1A0604" className="w-[76px] h-[76px]"
-                glow="drop-shadow(0 0 4px rgba(255,90,26,0.6))">
-                <BlockIcon type={d.block} size={66} />
-              </PixelBox>
-            ) : (
-              <BlockIcon type={d.block} size={62} />
-            )}
-          </PixelBox>
-        );
-      })}
-    </nav>
-  );
-}
 
 /** EXPLORE: stepped gold frame, flat red face, hard orange/red/black bands below, soft orange glow (design r9). */
 function ExploreButton({ children, href }: { children: ReactNode; href: string }) {
@@ -114,28 +77,6 @@ function StatCard({ value, label, i }: { value: string; label: string; i: number
   );
 }
 
-/**
- * Scale `content` down (never up) so it fits inside `box`. The hero is exactly one screen tall, so on shorter
- * screens the stack shrinks a little instead of running past the bottom.
- */
-function useFitScale() {
-  const box = useRef<HTMLDivElement>(null);
-  const content = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
-  useEffect(() => {
-    const b = box.current;
-    const c = content.current;
-    if (!b || !c) return;
-    const fit = () => setScale(Math.min(1, b.clientHeight / c.offsetHeight, b.clientWidth / c.offsetWidth));
-    const ro = new ResizeObserver(fit);
-    ro.observe(b);
-    ro.observe(c);
-    fit();
-    return () => ro.disconnect();
-  }, []);
-  return { box, content, scale };
-}
-
 export default function NetherHero({ go }: { go: (d: DimId) => void }) {
   const { box, content, scale } = useFitScale();
 
@@ -156,7 +97,7 @@ export default function NetherHero({ go }: { go: (d: DimId) => void }) {
       <div ref={box} className="absolute inset-x-0 top-[76px] bottom-[76px] z-10 flex items-center justify-center px-3">
        <div ref={content} className="flex flex-col items-center text-center shrink-0"
         style={{ transform: scale < 1 ? `scale(${scale})` : undefined }}>
-        <DimensionSwitcher go={go} />
+        <DimensionSwitcher current="nether" go={go} />
 
         <PixelBox step={2} border="#5C5A6C" fill="rgba(20,18,27,0.92)" glow="drop-shadow(0 5px 6px rgba(0,0,0,0.6))"
           className="mt-6 w-[128px] h-[40px]">
