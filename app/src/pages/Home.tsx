@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import Navbar from '@/components/Navbar';
 import DimensionTransition from '@/components/DimensionTransition';
 import Overworld from '@/sections/Overworld';
 import Nether from '@/sections/Nether';
@@ -54,9 +53,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#0b0b0d]">
-      {/* the Overworld and Nether pages have their own top bar and in-hero dimension switcher */}
-      {current === 'end' && <Navbar current={current} onSelect={go} />}
-
+      {/* every dimension page has its own top bar and in-hero dimension switcher */}
       <motion.div
         key={current}
         // the first page arrives pre-rendered: show it as-is, only fade in on dimension changes

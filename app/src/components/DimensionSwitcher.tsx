@@ -16,9 +16,9 @@ const THEME: Record<DimId, { outer: string; inner: string; fill: string; glow: s
     ring: 'drop-shadow(0 0 4px rgba(92,255,42,0.6))',
   },
   end: {
-    outer: '#C38CFF', inner: '#D8B0FF', fill: '#120A1A',
-    glow: 'drop-shadow(0 0 7px rgba(185,103,232,0.95)) drop-shadow(0 0 20px rgba(185,103,232,0.5))',
-    ring: 'drop-shadow(0 0 4px rgba(185,103,232,0.6))',
+    outer: '#2FD3B6', inner: '#5CD6C0', fill: '#0B1A18',
+    glow: 'drop-shadow(0 0 7px rgba(47,211,182,0.95)) drop-shadow(0 0 20px rgba(47,211,182,0.5))',
+    ring: 'drop-shadow(0 0 4px rgba(47,211,182,0.6))',
   },
 };
 
